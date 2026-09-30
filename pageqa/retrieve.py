@@ -1,5 +1,11 @@
+"""Rank passages by embedding cosine + keyword overlap."""
+
 import re
+
 import numpy as np
+
+
+K = 4
 
 STOP = {"the", "how", "what", "give", "for", "with", "and", "that", "this", "from", "use",
         "using", "can", "does", "code", "show", "get", "you", "are", "your"}
@@ -26,9 +32,6 @@ def _kw(question, c):
         return 0.0
     hay = (c.path + " " + c.text + " " + " ".join(c.code)).lower()
     return sum(t in hay for t in toks) / len(toks)
-
-
-K = 4
 
 
 def score(question, chunks, embs, llm):

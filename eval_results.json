@@ -1,6 +1,6 @@
 {
   "meta": {
-    "created": "2026-09-30T12:22:50+00:00",
+    "created": "2026-09-30T17:17:06+00:00",
     "csv": "evals/questions.csv",
     "questions": 20,
     "top_k": 4,
@@ -24,7 +24,7 @@
   "summary": {
     "questions": 20,
     "errors": 0,
-    "mean_overall": 0.578,
+    "mean_overall": 0.572,
     "stages": {
       "retrieval_miss": 9,
       "ok": 5,
@@ -38,9 +38,9 @@
       "selection_hit_rate": 0.333,
       "mean_context_recall": 0.307,
       "mean_source_evidence": 0.253,
-      "mean_answer_recall": 0.27,
-      "mean_judge_correctness": 0.656,
-      "mean_judge_grounded": 0.843,
+      "mean_answer_recall": 0.264,
+      "mean_judge_correctness": 0.633,
+      "mean_judge_grounded": 0.857,
       "mean_judge_context": 0.711
     },
     "unanswerable": {
@@ -50,7 +50,7 @@
     "by_article": {
       "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety": {
         "n": 10,
-        "mean_overall": 0.594,
+        "mean_overall": 0.585,
         "stages": {
           "retrieval_miss": 5,
           "ok": 3,
@@ -60,7 +60,7 @@
       },
       "https://docs.langchain.com/oss/python/langgraph/workflows-agents": {
         "n": 10,
-        "mean_overall": 0.563,
+        "mean_overall": 0.56,
         "stages": {
           "retrieval_miss": 4,
           "selection_miss": 3,
@@ -81,7 +81,7 @@
       "found": false,
       "abstained": true,
       "app_answer": "",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
       "retrieved": [],
       "top_k": [
         {
@@ -109,7 +109,7 @@
         "abstained": 1.0
       },
       "judge": {},
-      "seconds": 4.2,
+      "seconds": 4.7,
       "overall": 1.0,
       "stage": "correct_abstain",
       "input_order": 10
@@ -152,7 +152,7 @@
         "abstained": 1.0
       },
       "judge": {},
-      "seconds": 3.5,
+      "seconds": 4.1,
       "overall": 1.0,
       "stage": "correct_abstain",
       "input_order": 20
@@ -166,8 +166,8 @@
       "gold_context": "When the rider accepts your ride on the app and calls you to confirm your pick-up location, it is the perfect opportunity to demonstrate with your voice that you are female, a fact they may not necessarily pick up on by your profile name alone (not “Rasti” but “Jehan”, as in your friend whose name you borrowed for this after a government ban on a film you acted in turned things dicey, personal security wise).",
       "found": true,
       "abstained": false,
-      "app_answer": "The author used her friend Jehan's name on the ride-hailing app because, after a government ban on a film she acted in, her personal security became at risk, making it necessary to use a name that was not easily identifiable as hers. The name \"Jehan\" was borrowed from her friend to protect her identity and ensure safety.",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
+      "app_answer": "The author used her friend Jehan's name on the ride-hailing app because, after a government ban on a film she acted in, her personal security became at risk, making it necessary to use a different name to protect herself. The name \"Jehan\" was borrowed from her friend to help conceal her identity.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
       "retrieved": [
         {
           "passage_id": 4,
@@ -204,7 +204,7 @@
         "source_evidence": 0.464,
         "topk_evidence": 0.464,
         "context_match": 0.968,
-        "answer_recall": 0.357,
+        "answer_recall": 0.321,
         "correctness": 1.0,
         "grounded": 1.0,
         "context_judge": 1.0
@@ -212,7 +212,7 @@
       "judge": {
         "correctness": {
           "score": 5,
-          "reason": "Both answers state that the government ban on a film created personal security concerns, leading the author to use a pseudonym for safety, with Jehan's name serving as a protective identifier."
+          "reason": "Both answers state that the government ban on a film created personal security concerns, leading the author to use a different name, specifically her friend Jehan's name, to protect her identity."
         },
         "grounded": {
           "score": 5,
@@ -224,12 +224,83 @@
         }
       },
       "seconds": 11.8,
-      "overall": 0.896,
+      "overall": 0.89,
       "stage": "ok",
       "input_order": 2
     },
     {
       "rank": 4,
+      "article": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
+      "question": "In the routing example, what are the three possible routing decisions?",
+      "expected_not_found": false,
+      "gold_answer": "The three possible routing choices are 'story', 'joke', or 'poem'. These options are defined using a structured Pydantic model (Route) containing a literal string specification: step: Literal[\"poem\", \"story\", \"joke\"].",
+      "gold_context": "class Route(BaseModel):step: Literal[\"poem\", \"story\", \"joke\"]def router(state: State):\"\"\"Route the input to the appropriate LLM call\"\"\"decision = llm.with_structured_output(Route).invoke(f\"Route the user request to poem, story, or joke: {state['input']}\")return decision.step",
+      "found": true,
+      "abstained": false,
+      "app_answer": "The three possible routing decisions are \"poem\", \"story\", and \"joke\", as defined in the Literal type within the Route schema. These options represent the next step in the routing process according to the structured output model. The schema explicitly lists these three choices as valid routing decisions.",
+      "page_purpose": "This web page explains Workflows and Agents in LangChain, where Workflows follow fixed, ordered code paths and Agents dynamically decide their processes and tool usage. It covers setup, LLM integration, prompt chaining, parallelization, routing, orchestrator-worker systems, tool nodes, and example traces.",
+      "retrieved": [
+        {
+          "passage_id": 8,
+          "path": "Workflows and agents > Routing",
+          "link": "https://docs.langchain.com/oss/python/langgraph/workflows-agents#routing",
+          "text": "\nfrom typing_extensions import Literal\nfrom langchain.messages import HumanMessage, SystemMessage\n\n\n# Schema for structured output to use as routing logic\nclass Route(BaseModel):\n    step: Literal[\"poem\", \"story\", \"joke\"] = Field(\n        None, description=\"The next step in the routing process\"\n    )\n\n\n# Augment the LLM with schema for structured output\nrouter = llm.with_structured_output(Route)\n\n\n# State\nclass State(TypedDict):\n    input: str\n    decision: str\n    output: str\n\n\n# Nodes\ndef llm_call_1(state: State):\n    \"\"\"Write a story\"\"\"\n\n    result = llm.invoke(state[\"input\"])\n    return {\"output\": result.content}\n\n\ndef llm_call_2(state: State):\n    \"\"\"Write a joke\"\"\"\n\n    result = llm.invoke(state[\"input\"])\n    return {\"output\": result.content}\n\n\ndef llm_call_3(state: State):\n    \"\"\"Write a poem\"\"\"\n\n    result = llm.invoke(state[\"input\"])\n    return {\"output\": result.content}\n\n\ndef llm_call_router(state: State):\n    \"\"\"Route the input to the appropriate node\"\"\"\n\n    # Run the augmented LLM with structured output to serve as routing logic\n    decision = router.invoke(\n        [\n            SystemMessage(\n                content=\"Route the input to story, joke, or poem based on the user's request.\"\n            ),\n            HumanMessage(content=state[\"input\"]),\n        ]\n    )\n\n    return {\"decision\": decision.step}\n\n\n# Conditional edge function to route to the appropriate node\ndef route_decision(state: State):\n    # Return the node name you want to visit next\n    if state[\"decision\"] == \"story\":\n        return \"llm_call_1\"\n    elif state[\"decision\"] == \"joke\":\n        return \"llm_call_2\"\n    elif state[\"decision\"] == \"poem\":\n        return \"llm_call_3\"\n\n\n# Build workflow\nrouter_builder = StateGraph(State)\n\n# Add nodes\nrouter_builder.add_node(\"llm_call_1\", llm_call_1)\nrouter_builder.add_node(\"llm_call_2\", llm_call_2)\nrouter_builder.add_node(\"llm_call_3\", llm_call_3)\nrouter_builder.add_node(\"llm_call_router\", llm_call_router)\n\n# Add edges to connect nodes\nrouter_builder.add_edge(START, \"llm_call_router\")\nrouter_builder.add_conditional_edges(\n    \"llm_call_router\",\n    route_decision,\n    {  # Name returned by route_decision : Name of next node to visit\n        \"llm_call_1\": \"llm_call_1\",\n        \"llm_call_2\": \"llm_call_2\",\n        \"llm_call_3\": \"llm_call_3\",\n    },\n)\nrouter_builder.add_edge(\"llm_call_1\", END)\nrouter_builder.add_edge(\"llm_call_2\", END)\nrouter_builder.add_edge(\"llm_call_3\", END)\n\n# Compile workflow\nrouter_workflow = router_builder.compile()\n\n# Show the workflow\ndisplay(Image(router_workflow.get_graph().draw_mermaid_png()))\n\n# Invoke\nstate = router_workflow.invoke({\"input\": \"Write me a joke about cats\"})\nprint(state[\"output\"])"
+        }
+      ],
+      "top_k": [
+        {
+          "passage_id": 9,
+          "path": "Workflows and agents > Routing",
+          "preview": "from typing_extensions import Literal from pydantic import BaseModel from langchain.messages import HumanMessage, System"
+        },
+        {
+          "passage_id": 8,
+          "path": "Workflows and agents > Routing",
+          "preview": "from typing_extensions import Literal from langchain.messages import HumanMessage, SystemMessage # Schema for structured"
+        },
+        {
+          "passage_id": 5,
+          "path": "Workflows and agents > Prompt chaining",
+          "preview": "from langgraph.func import entrypoint, task # Tasks @task def generate_joke(topic: str): \"\"\"First LLM call to generate i"
+        },
+        {
+          "passage_id": 0,
+          "path": "Workflows and agents",
+          "preview": "Workflows have predetermined code paths and are designed to operate in a certain order. Agents are dynamic and define th"
+        }
+      ],
+      "scores": {
+        "context_recall": 0.526,
+        "topk_recall": 0.536,
+        "source_evidence": 0.4,
+        "topk_evidence": 0.45,
+        "context_match": 0.526,
+        "answer_recall": 0.75,
+        "correctness": 1.0,
+        "grounded": 1.0,
+        "context_judge": 1.0
+      },
+      "judge": {
+        "correctness": {
+          "score": 5,
+          "reason": "Both answers state that the three possible routing decisions are \"poem\", \"story\", and \"joke\", and that they are defined using a Literal type in a Route schema."
+        },
+        "grounded": {
+          "score": 5,
+          "reason": "Every claim in the candidate answer is directly supported by the source text, including the three routing decisions and their definition in the Route schema."
+        },
+        "context_judge": {
+          "score": 5,
+          "reason": "The retrieved text explicitly lists the three possible routing decisions: story, joke, and poem, as defined in the Route class and used in the routing logic."
+        }
+      },
+      "seconds": 12.4,
+      "overall": 0.844,
+      "stage": "ok",
+      "input_order": 15
+    },
+    {
+      "rank": 5,
       "article": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety",
       "question": "Where did the author buy her helmet and what did it look like?",
       "expected_not_found": false,
@@ -237,8 +308,8 @@
       "gold_context": "In June 2024, at a small store in Bohri Bazaar, Karachi, I spent hours looking through options. But I settled for a matte grey-black with red streaks that curved around from the back, a faint skull at the very top, and some raptor-esque graffiti on the sides, complete with a flip-up full face and tinted inner visor.",
       "found": true,
       "abstained": false,
-      "app_answer": "The author bought her helmet in Bohri Bazaar, Karachi. It looked matte grey-black with red streaks that curved from the back, a faint skull at the very top, and raptor-esque graffiti on the sides.",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
+      "app_answer": "The author bought her helmet in Bohri Bazaar, Karachi. It looked like a matte grey-black helmet with red streaks that curved from the back, a faint skull at the very top, and raptor-esque graffiti on the sides.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
       "retrieved": [
         {
           "passage_id": 11,
@@ -283,7 +354,7 @@
       "judge": {
         "correctness": {
           "score": 5,
-          "reason": "Both answers state the location (Bohri Bazaar, Karachi), the color (matte grey-black), the red streaks, skull graphic, and raptor-style graffiti, with all key facts matching."
+          "reason": "Both answers state the same key facts: the location (Bohri Bazaar, Karachi), the time (June 2024), the color (matte grey-black), the red streaks curving from the back, the skull graphic on top, and the raptor-style side graffiti."
         },
         "grounded": {
           "score": 5,
@@ -294,81 +365,10 @@
           "reason": "The retrieved text includes both the location where the author bought her helmet and a detailed description of its appearance."
         }
       },
-      "seconds": 10.2,
+      "seconds": 11.9,
       "overall": 0.832,
       "stage": "ok",
       "input_order": 5
-    },
-    {
-      "rank": 5,
-      "article": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
-      "question": "In the routing example, what are the three possible routing decisions?",
-      "expected_not_found": false,
-      "gold_answer": "The three possible routing choices are 'story', 'joke', or 'poem'. These options are defined using a structured Pydantic model (Route) containing a literal string specification: step: Literal[\"poem\", \"story\", \"joke\"].",
-      "gold_context": "class Route(BaseModel):step: Literal[\"poem\", \"story\", \"joke\"]def router(state: State):\"\"\"Route the input to the appropriate LLM call\"\"\"decision = llm.with_structured_output(Route).invoke(f\"Route the user request to poem, story, or joke: {state['input']}\")return decision.step",
-      "found": true,
-      "abstained": false,
-      "app_answer": "The three possible routing decisions are \"poem\", \"story\", and \"joke\". These are defined in the Literal type within the Route schema as the possible values for the step field. The schema specifies that the next step in the routing process must be one of these three options.",
-      "page_purpose": "This web page explains Workflows and Agents in LangChain, where Workflows follow fixed, ordered code paths and Agents dynamically decide their processes and tool usage. It covers setup, LLM integration, prompt chaining, parallelization, routing, orchestrator-worker systems, tool nodes, and example traces.",
-      "retrieved": [
-        {
-          "passage_id": 8,
-          "path": "Workflows and agents > Routing",
-          "link": "https://docs.langchain.com/oss/python/langgraph/workflows-agents#routing",
-          "text": "\nfrom typing_extensions import Literal\nfrom langchain.messages import HumanMessage, SystemMessage\n\n\n# Schema for structured output to use as routing logic\nclass Route(BaseModel):\n    step: Literal[\"poem\", \"story\", \"joke\"] = Field(\n        None, description=\"The next step in the routing process\"\n    )\n\n\n# Augment the LLM with schema for structured output\nrouter = llm.with_structured_output(Route)\n\n\n# State\nclass State(TypedDict):\n    input: str\n    decision: str\n    output: str\n\n\n# Nodes\ndef llm_call_1(state: State):\n    \"\"\"Write a story\"\"\"\n\n    result = llm.invoke(state[\"input\"])\n    return {\"output\": result.content}\n\n\ndef llm_call_2(state: State):\n    \"\"\"Write a joke\"\"\"\n\n    result = llm.invoke(state[\"input\"])\n    return {\"output\": result.content}\n\n\ndef llm_call_3(state: State):\n    \"\"\"Write a poem\"\"\"\n\n    result = llm.invoke(state[\"input\"])\n    return {\"output\": result.content}\n\n\ndef llm_call_router(state: State):\n    \"\"\"Route the input to the appropriate node\"\"\"\n\n    # Run the augmented LLM with structured output to serve as routing logic\n    decision = router.invoke(\n        [\n            SystemMessage(\n                content=\"Route the input to story, joke, or poem based on the user's request.\"\n            ),\n            HumanMessage(content=state[\"input\"]),\n        ]\n    )\n\n    return {\"decision\": decision.step}\n\n\n# Conditional edge function to route to the appropriate node\ndef route_decision(state: State):\n    # Return the node name you want to visit next\n    if state[\"decision\"] == \"story\":\n        return \"llm_call_1\"\n    elif state[\"decision\"] == \"joke\":\n        return \"llm_call_2\"\n    elif state[\"decision\"] == \"poem\":\n        return \"llm_call_3\"\n\n\n# Build workflow\nrouter_builder = StateGraph(State)\n\n# Add nodes\nrouter_builder.add_node(\"llm_call_1\", llm_call_1)\nrouter_builder.add_node(\"llm_call_2\", llm_call_2)\nrouter_builder.add_node(\"llm_call_3\", llm_call_3)\nrouter_builder.add_node(\"llm_call_router\", llm_call_router)\n\n# Add edges to connect nodes\nrouter_builder.add_edge(START, \"llm_call_router\")\nrouter_builder.add_conditional_edges(\n    \"llm_call_router\",\n    route_decision,\n    {  # Name returned by route_decision : Name of next node to visit\n        \"llm_call_1\": \"llm_call_1\",\n        \"llm_call_2\": \"llm_call_2\",\n        \"llm_call_3\": \"llm_call_3\",\n    },\n)\nrouter_builder.add_edge(\"llm_call_1\", END)\nrouter_builder.add_edge(\"llm_call_2\", END)\nrouter_builder.add_edge(\"llm_call_3\", END)\n\n# Compile workflow\nrouter_workflow = router_builder.compile()\n\n# Show the workflow\ndisplay(Image(router_workflow.get_graph().draw_mermaid_png()))\n\n# Invoke\nstate = router_workflow.invoke({\"input\": \"Write me a joke about cats\"})\nprint(state[\"output\"])"
-        }
-      ],
-      "top_k": [
-        {
-          "passage_id": 9,
-          "path": "Workflows and agents > Routing",
-          "preview": "from typing_extensions import Literal from pydantic import BaseModel from langchain.messages import HumanMessage, System"
-        },
-        {
-          "passage_id": 8,
-          "path": "Workflows and agents > Routing",
-          "preview": "from typing_extensions import Literal from langchain.messages import HumanMessage, SystemMessage # Schema for structured"
-        },
-        {
-          "passage_id": 5,
-          "path": "Workflows and agents > Prompt chaining",
-          "preview": "from langgraph.func import entrypoint, task # Tasks @task def generate_joke(topic: str): \"\"\"First LLM call to generate i"
-        },
-        {
-          "passage_id": 0,
-          "path": "Workflows and agents",
-          "preview": "Workflows have predetermined code paths and are designed to operate in a certain order. Agents are dynamic and define th"
-        }
-      ],
-      "scores": {
-        "context_recall": 0.526,
-        "topk_recall": 0.536,
-        "source_evidence": 0.4,
-        "topk_evidence": 0.45,
-        "context_match": 0.526,
-        "answer_recall": 0.6,
-        "correctness": 1.0,
-        "grounded": 1.0,
-        "context_judge": 1.0
-      },
-      "judge": {
-        "correctness": {
-          "score": 5,
-          "reason": "Both answers state that the three possible routing decisions are \"poem\", \"story\", and \"joke\", and that they are defined in a Literal type within a Route schema as step values."
-        },
-        "grounded": {
-          "score": 5,
-          "reason": "Every claim in the candidate answer is directly supported by the source text, including the three routing decisions and their definition in the Route schema."
-        },
-        "context_judge": {
-          "score": 5,
-          "reason": "The retrieved text explicitly lists the three possible routing decisions: story, joke, and poem, as defined in the Route class and used in the routing logic."
-        }
-      },
-      "seconds": 11.2,
-      "overall": 0.822,
-      "stage": "ok",
-      "input_order": 15
     },
     {
       "rank": 6,
@@ -379,7 +379,7 @@
       "gold_context": "def check_punchline(state: State):\"\"\"Gate function to check if the joke has a punchline\"\"\"# Simple check - does the joke contain \"?\" or \"!\"if \"?\" in state[\"joke\"] or \"!\" in state[\"joke\"]:return \"Pass\"return \"Fail\"",
       "found": true,
       "abstained": false,
-      "app_answer": "The check_punchline gate function checks if the joke contains a question mark (\"?\") or an exclamation mark (\"!\"), which are simple indicators of a punchline. This check is part of a prompt chaining workflow to evaluate whether the generated joke has a proper structure. The function is incomplete in the provided code but the intended logic is clear.",
+      "app_answer": "The check_punchline gate function checks if the joke contains a question mark (\"?\") or an exclamation mark (\"!\"), which are simple indicators of a punchline. This check is part of a prompt chaining workflow to evaluate whether the generated joke has a proper structure. The function is incomplete in the provided code but the intent is clear.",
       "page_purpose": "This web page explains Workflows and Agents in LangChain, where Workflows follow fixed, ordered code paths and Agents dynamically decide their processes and tool usage. It covers setup, LLM integration, prompt chaining, parallelization, routing, orchestrator-worker systems, tool nodes, and example traces.",
       "retrieved": [
         {
@@ -425,7 +425,7 @@
       "judge": {
         "correctness": {
           "score": 5,
-          "reason": "Both answers state that the check_punchline gate function checks for the presence of a question mark or an exclamation mark and that this check validates whether the joke has a proper punchline structure."
+          "reason": "Both answers state that the check_punchline gate function checks for the presence of a question mark or an exclamation mark in the joke."
         },
         "grounded": {
           "score": 5,
@@ -436,7 +436,7 @@
           "reason": "The retrieved text fully matches the reference paragraph in describing the check_punchline gate function and its logic."
         }
       },
-      "seconds": 11.6,
+      "seconds": 12.1,
       "overall": 0.819,
       "stage": "selection_miss",
       "input_order": 12
@@ -444,156 +444,14 @@
     {
       "rank": 7,
       "article": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety",
-      "question": "How much did the author's first-ever ride cost?",
-      "expected_not_found": false,
-      "gold_answer": "Her very first ride cost RS 110. It was a short, 8-kilometer ride on a quiet Sunday afternoon into the cantonment area, driven safely and uneventfully by a middle-aged man in his mid-40s with a greying beard.",
-      "gold_context": "My first ever ride was probably the nicest one I've had in these two years. It was noon on a Sunday which meant fewer people on the roads. Moreover, it was an intentionally short ride (8 km) into the cantonment area. Sure enough, my rider was a mid-40's uncle with a greying beard and he rode me uneventfully to my destination. It cost me RS 110.",
-      "found": true,
-      "abstained": false,
-      "app_answer": "The author's first-ever ride cost RS 110. This is stated directly in section [26], which describes the ride and its cost in the context of the uncle's ride to the destination.",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
-      "retrieved": [
-        {
-          "passage_id": 26,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "link": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety#comp-m7nrvdsn",
-          "text": "It was noon on a Sunday which meant fewer people on the roads. That increased my chances of getting a serious-minded uncle kind of a rider instead of a flamboyant youngster because he would likely be sleeping in on a Sunday. Moreover, it was an intentionally short ride (8 km) into the cantonment area (hello military police everywhere). Sure enough, my rider was a mid-40’s uncle with a greying beard and he rode me uneventfully to my destination. It cost me RS 110. When I got off I felt compelled to tell him he’d made me feel very safe. He seemed slightly surprised at receiving this compliment at 12:17 pm on a Sunday, but accepted it nonetheless. He rode off and I stood there with a growing sense that riding around the city was going to save me from me."
-        }
-      ],
-      "top_k": [
-        {
-          "passage_id": 25,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "It was a tense 10 minutes, but then I spotted my rider–big flashy mehndi beard–speeding back to get me. My first ever ri"
-        },
-        {
-          "passage_id": 26,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "It was noon on a Sunday which meant fewer people on the roads. That increased my chances of getting a serious-minded unc"
-        },
-        {
-          "passage_id": 10,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "And he went: but I asked you. We did maybe one more round of that and then I snapped at him with an unkind lesson on the"
-        },
-        {
-          "passage_id": 13,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "In spite of my helmet, I’ve spent much of my commute time considering death and its cousin, paralysis, with only a brief"
-        }
-      ],
-      "scores": {
-        "context_recall": 0.686,
-        "topk_recall": 0.876,
-        "source_evidence": 0.529,
-        "topk_evidence": 0.588,
-        "context_match": 0.686,
-        "answer_recall": 0.176,
-        "correctness": 1.0,
-        "grounded": 0.6,
-        "context_judge": 1.0
-      },
-      "judge": {
-        "correctness": {
-          "score": 5,
-          "reason": "Both answers state that the author's first-ever ride cost RS 110, which is the key fact."
-        },
-        "grounded": {
-          "score": 3,
-          "reason": "The claim that the ride cost RS 110 is supported, but the reference to section [26] is not found in the source text and thus lacks support."
-        },
-        "context_judge": {
-          "score": 5,
-          "reason": "The retrieved text includes the exact cost mentioned in the reference paragraph, RS 110, which directly answers the question."
-        }
-      },
-      "seconds": 11.2,
-      "overall": 0.758,
-      "stage": "answer_weak",
-      "input_order": 8
-    },
-    {
-      "rank": 8,
-      "article": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety",
-      "question": "What happened to the bike lane pilot project on Ferozepur Road?",
-      "expected_not_found": false,
-      "gold_answer": "A light spell of rain washed away all the green paint on the Ferozepur Road bike lane, which reportedly wasted 110 million rupees spent on locally sourced paint. A week later, authorities repainted portions of the route and installed physical barricades to separate the bike lane from main traffic.",
-      "gold_context": "The bike lane pilot project on Ferozepur Road seemed promising till a spell of light rain washed all the green away (along with allegedly 110 million rupees for the locally produced paint, according to a local news channel). A week later parts of the stretch were repainted and a barricade went up separating the bike lane from the main road.",
-      "found": true,
-      "abstained": false,
-      "app_answer": "The bike lane pilot project on Ferozepur Road was short-lived because a spell of light rain washed away the green paint, along with an alleged 110 million rupees worth of locally produced paint. A barricade was later erected, cutting off the bike lane from the rest of the road.",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
-      "retrieved": [
-        {
-          "passage_id": 13,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "link": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety#comp-m7nrvdsn",
-          "text": "In spite of my helmet, I’ve spent much of my commute time considering death and its cousin, paralysis, with only a brief respite in between. It was January 2025, and the city was launching a (sadly short-lived) pilot project: a designated “bike lane”. One day, there were laborers painting the left strip of Ferozepur Road green going down several kilometers. They did this for a couple weeks till a spell of light rain washed all the green away (along with allegedly 110 million rupees for the locally produced paint, supposedly a cost-effective substitute for the imported variety, as per a local news channel). A week later, some parts of the stretch got a fresh coat of paint and a barricade went up, cutting off the bike lane from the rest of the road. For a while, vehicles tried to navigate the nightmarish crisscross of entry and exit points to the lane. It was chaotic, but once inside the lane, my heart rate would be noticeably lower."
-        }
-      ],
-      "top_k": [
-        {
-          "passage_id": 13,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "In spite of my helmet, I’ve spent much of my commute time considering death and its cousin, paralysis, with only a brief"
-        },
-        {
-          "passage_id": 14,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "It was on Ferozepur road going down this bike lane that I first noticed them. They were riding outside the barricade on "
-        },
-        {
-          "passage_id": 24,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "The second time, we were travelling late afternoon on a service lane that runs parallel to the Ring Road highway around "
-        },
-        {
-          "passage_id": 39,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "We, two fools on a bike, were attempting to cross the 250m stretch five minutes before iftar. Crowds thronged food stall"
-        }
-      ],
-      "scores": {
-        "context_recall": 0.491,
-        "topk_recall": 0.498,
-        "source_evidence": 0.567,
-        "topk_evidence": 0.6,
-        "context_match": 0.567,
-        "answer_recall": 0.5,
-        "correctness": 0.8,
-        "grounded": 1.0,
-        "context_judge": 1.0
-      },
-      "judge": {
-        "correctness": {
-          "score": 4,
-          "reason": "The candidate answer includes all key facts from the reference answer but incorrectly states that a barricade \"cut off\" the bike lane, implying it was fully severed, whereas the reference says it separated the lane from main traffic, which is a different outcome."
-        },
-        "grounded": {
-          "score": 5,
-          "reason": "Every claim in the candidate answer is directly supported by specific details in the source text."
-        },
-        "context_judge": {
-          "score": 5,
-          "reason": "The retrieved text includes all the key details from the reference paragraph about the bike lane pilot project on Ferozepur Road, including its initial promise, the rain washing away the paint and funds, and the subsequent repainting and barricade."
-        }
-      },
-      "seconds": 29.0,
-      "overall": 0.757,
-      "stage": "ok",
-      "input_order": 6
-    },
-    {
-      "rank": 9,
-      "article": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety",
       "question": "What does the author compare her helmet to?",
       "expected_not_found": false,
       "gold_answer": "The author compares her motorcycle helmet to a Garmin sportswatch belonging to a sando-wearing gym bro, highlighting how much pride and excitement she takes in wearing it, eager for others to notice it, and remaining strictly disciplined about wearing it.",
       "gold_context": "My helmet is to me what I imagine a Garmin sportswatch is to a sando-wearing gymbro. I fawn over it, wait for people to notice it, and am never lax about putting it on before stepping onto the bike.",
       "found": true,
       "abstained": false,
-      "app_answer": "The author compares her helmet to a Garmin sportswatch that a sando-wearing gymbro would fawn over. This metaphor emphasizes how the helmet is a point of pride and attention for the author, much like a prized piece of gear.",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
+      "app_answer": "The author compares her helmet to a Garmin sportswatch that a sando-wearing gymbro would fawn over. This metaphor emphasizes how the helmet is a point of pride and attention for her, much like a high-status accessory.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
       "retrieved": [
         {
           "passage_id": 9,
@@ -638,21 +496,163 @@
       "judge": {
         "correctness": {
           "score": 5,
-          "reason": "Both answers state that the author compares her motorcycle helmet to a Garmin sportswatch belonging to a sando-wearing gym bro, and both highlight the pride, excitement, and desire for attention associated with wearing it."
+          "reason": "Both answers state that the author compares her helmet to a Garmin sportswatch belonging to a sando-wearing gymbro, and both highlight the pride, excitement, and desire for attention associated with wearing it."
         },
         "grounded": {
           "score": 3,
-          "reason": "The candidate misrepresents the comparison, claiming the helmet is compared to a Garmin sportswatch that a sando-wearing gymbro would fawn over, when the source only states the author imagines a Garmin sportswatch is to a sando-wearing gymbro what her helmet is to her."
+          "reason": "The candidate incorrectly states that the author compares her helmet to a Garmin sportswatch, when the source only says the helmet is \"what I imagine a Garmin sportswatch is to a sando-wearing gymbro,\" meaning the comparison is between the helmet and the watch, not that the helmet is the watch."
         },
         "context_judge": {
           "score": 5,
-          "reason": "The retrieved text includes the exact comparison made in the reference paragraph."
+          "reason": "The retrieved text includes the exact comparison made in the reference paragraph about the helmet being like a Garmin sportswatch to a sando-wearing gymbro."
         }
       },
-      "seconds": 11.7,
+      "seconds": 12.5,
       "overall": 0.746,
       "stage": "retrieval_miss",
       "input_order": 4
+    },
+    {
+      "rank": 8,
+      "article": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety",
+      "question": "How much did the author's first-ever ride cost?",
+      "expected_not_found": false,
+      "gold_answer": "Her very first ride cost RS 110. It was a short, 8-kilometer ride on a quiet Sunday afternoon into the cantonment area, driven safely and uneventfully by a middle-aged man in his mid-40s with a greying beard.",
+      "gold_context": "My first ever ride was probably the nicest one I've had in these two years. It was noon on a Sunday which meant fewer people on the roads. Moreover, it was an intentionally short ride (8 km) into the cantonment area. Sure enough, my rider was a mid-40's uncle with a greying beard and he rode me uneventfully to my destination. It cost me RS 110.",
+      "found": true,
+      "abstained": false,
+      "app_answer": "The author's first-ever ride cost RS 110. This is stated directly in section [26], which describes the ride and its cost. The section also notes that the ride was positive and made the author feel safe.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
+      "retrieved": [
+        {
+          "passage_id": 26,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "link": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety#comp-m7nrvdsn",
+          "text": "It was noon on a Sunday which meant fewer people on the roads. That increased my chances of getting a serious-minded uncle kind of a rider instead of a flamboyant youngster because he would likely be sleeping in on a Sunday. Moreover, it was an intentionally short ride (8 km) into the cantonment area (hello military police everywhere). Sure enough, my rider was a mid-40’s uncle with a greying beard and he rode me uneventfully to my destination. It cost me RS 110. When I got off I felt compelled to tell him he’d made me feel very safe. He seemed slightly surprised at receiving this compliment at 12:17 pm on a Sunday, but accepted it nonetheless. He rode off and I stood there with a growing sense that riding around the city was going to save me from me."
+        }
+      ],
+      "top_k": [
+        {
+          "passage_id": 25,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "It was a tense 10 minutes, but then I spotted my rider–big flashy mehndi beard–speeding back to get me. My first ever ri"
+        },
+        {
+          "passage_id": 26,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "It was noon on a Sunday which meant fewer people on the roads. That increased my chances of getting a serious-minded unc"
+        },
+        {
+          "passage_id": 10,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "And he went: but I asked you. We did maybe one more round of that and then I snapped at him with an unkind lesson on the"
+        },
+        {
+          "passage_id": 13,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "In spite of my helmet, I’ve spent much of my commute time considering death and its cousin, paralysis, with only a brief"
+        }
+      ],
+      "scores": {
+        "context_recall": 0.686,
+        "topk_recall": 0.876,
+        "source_evidence": 0.529,
+        "topk_evidence": 0.588,
+        "context_match": 0.686,
+        "answer_recall": 0.176,
+        "correctness": 0.8,
+        "grounded": 1.0,
+        "context_judge": 1.0
+      },
+      "judge": {
+        "correctness": {
+          "score": 4,
+          "reason": "Both answers state the cost was RS 110, and both mention it was the first ride, but the candidate omits details about the ride's duration, location, and driver's appearance present in the reference."
+        },
+        "grounded": {
+          "score": 5,
+          "reason": "The SOURCE TEXT directly states that the ride cost RS 110 and confirms the author felt safe, supporting every claim in the CANDIDATE ANSWER."
+        },
+        "context_judge": {
+          "score": 5,
+          "reason": "The retrieved text includes the exact cost mentioned in the reference paragraph, RS 110, which directly answers the question."
+        }
+      },
+      "seconds": 11.6,
+      "overall": 0.738,
+      "stage": "answer_weak",
+      "input_order": 8
+    },
+    {
+      "rank": 9,
+      "article": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety",
+      "question": "What happened to the bike lane pilot project on Ferozepur Road?",
+      "expected_not_found": false,
+      "gold_answer": "A light spell of rain washed away all the green paint on the Ferozepur Road bike lane, which reportedly wasted 110 million rupees spent on locally sourced paint. A week later, authorities repainted portions of the route and installed physical barricades to separate the bike lane from main traffic.",
+      "gold_context": "The bike lane pilot project on Ferozepur Road seemed promising till a spell of light rain washed all the green away (along with allegedly 110 million rupees for the locally produced paint, according to a local news channel). A week later parts of the stretch were repainted and a barricade went up separating the bike lane from the main road.",
+      "found": true,
+      "abstained": false,
+      "app_answer": "The bike lane pilot project on Ferozepur Road was short-lived; after a spell of light rain washed away the green paint, a barricade was erected that cut off the bike lane from the rest of the road. The project was ultimately discontinued, as indicated by the description of its brief existence and the subsequent chaos in traffic flow.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
+      "retrieved": [
+        {
+          "passage_id": 13,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "link": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety#comp-m7nrvdsn",
+          "text": "In spite of my helmet, I’ve spent much of my commute time considering death and its cousin, paralysis, with only a brief respite in between. It was January 2025, and the city was launching a (sadly short-lived) pilot project: a designated “bike lane”. One day, there were laborers painting the left strip of Ferozepur Road green going down several kilometers. They did this for a couple weeks till a spell of light rain washed all the green away (along with allegedly 110 million rupees for the locally produced paint, supposedly a cost-effective substitute for the imported variety, as per a local news channel). A week later, some parts of the stretch got a fresh coat of paint and a barricade went up, cutting off the bike lane from the rest of the road. For a while, vehicles tried to navigate the nightmarish crisscross of entry and exit points to the lane. It was chaotic, but once inside the lane, my heart rate would be noticeably lower."
+        }
+      ],
+      "top_k": [
+        {
+          "passage_id": 13,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "In spite of my helmet, I’ve spent much of my commute time considering death and its cousin, paralysis, with only a brief"
+        },
+        {
+          "passage_id": 14,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "It was on Ferozepur road going down this bike lane that I first noticed them. They were riding outside the barricade on "
+        },
+        {
+          "passage_id": 24,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "The second time, we were travelling late afternoon on a service lane that runs parallel to the Ring Road highway around "
+        },
+        {
+          "passage_id": 39,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "We, two fools on a bike, were attempting to cross the 250m stretch five minutes before iftar. Crowds thronged food stall"
+        }
+      ],
+      "scores": {
+        "context_recall": 0.491,
+        "topk_recall": 0.498,
+        "source_evidence": 0.567,
+        "topk_evidence": 0.6,
+        "context_match": 0.567,
+        "answer_recall": 0.4,
+        "correctness": 0.8,
+        "grounded": 0.6,
+        "context_judge": 1.0
+      },
+      "judge": {
+        "correctness": {
+          "score": 4,
+          "reason": "Both answers state that light rain washed away the green paint and that a barricade was installed to separate the bike lane from main traffic, but the candidate omits the detail about the 110 million rupees spent on paint and the fact that authorities repainted portions of the route."
+        },
+        "grounded": {
+          "score": 3,
+          "reason": "The candidate claims the project was \"ultimately discontinued,\" but the source text does not explicitly state this conclusion."
+        },
+        "context_judge": {
+          "score": 5,
+          "reason": "The retrieved text includes all the key details from the reference paragraph about the bike lane pilot project on Ferozepur Road, including its initial promise, the rain washing away the paint and funds, and the subsequent repainting and barricade."
+        }
+      },
+      "seconds": 13.1,
+      "overall": 0.702,
+      "stage": "ok",
+      "input_order": 6
     },
     {
       "rank": 10,
@@ -729,10 +729,10 @@
         },
         "context_judge": {
           "score": 5,
-          "reason": "The retrieved text clearly specifies the model used (\"claude-sonnet-4-6\") and details the augmentations such as structured output and tool calling, matching the reference paragraph exactly."
+          "reason": "The retrieved text clearly specifies the model used and lists the augmentations such as structured output and tool calling."
         }
       },
-      "seconds": 11.3,
+      "seconds": 12.5,
       "overall": 0.69,
       "stage": "ok",
       "input_order": 18
@@ -746,7 +746,7 @@
       "gold_context": "Workflows are architectures where LLMs and code are orchestrated through predetermined control flows. Workflows have predetermined code paths and are designed to operate in a certain order. Agents, on the other hand, are dynamic systems where the LLM directs its own actions and tool usage based on inputs and environmental feedback.",
       "found": true,
       "abstained": false,
-      "app_answer": "Workflows follow fixed, ordered code paths, while Agents dynamically decide their processes and tool usage. Agents use LLMs to make decisions about which tools to call, as seen in the code where an LLM decides whether to invoke a tool or not. This dynamic decision-making is a key difference from workflows, which do not involve such variability.",
+      "app_answer": "Workflows follow fixed, ordered code paths, while Agents dynamically decide their processes and tool usage. Agents use LLMs to make decisions about which tools to call, as seen in the code where an LLM decides whether to invoke a tool or not. This dynamic decision-making is a key difference from workflows, which follow a predetermined sequence.",
       "page_purpose": "This web page explains Workflows and Agents in LangChain, where Workflows follow fixed, ordered code paths and Agents dynamically decide their processes and tool usage. It covers setup, LLM integration, prompt chaining, parallelization, routing, orchestrator-worker systems, tool nodes, and example traces.",
       "retrieved": [
         {
@@ -798,7 +798,7 @@
         "context_match": 0.065,
         "answer_recall": 0.258,
         "correctness": 1.0,
-        "grounded": 0.8,
+        "grounded": 1.0,
         "context_judge": 1.0
       },
       "judge": {
@@ -807,21 +807,92 @@
           "reason": "Both answers correctly state that workflows follow fixed, predefined paths while agents dynamically decide their actions and tool usage based on real-time feedback."
         },
         "grounded": {
-          "score": 4,
-          "reason": "The candidate answer correctly identifies dynamic decision-making in agents and references the code, but the claim about workflows following \"fixed, ordered code paths\" is not explicitly stated or supported in the source text."
+          "score": 5,
+          "reason": "Every claim in the candidate answer is directly supported by the source text, which describes how agents use LLMs to decide tool calls and how workflows involve conditional edges and fixed paths."
         },
         "context_judge": {
           "score": 5,
           "reason": "The retrieved text clearly explains the difference between workflows and agents by describing how workflows follow predetermined control flows and how agents use dynamic decision-making based on inputs and feedback."
         }
       },
-      "seconds": 17.5,
-      "overall": 0.635,
+      "seconds": 19.0,
+      "overall": 0.655,
       "stage": "retrieval_miss",
       "input_order": 11
     },
     {
       "rank": 12,
+      "article": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety",
+      "question": "Why did the author ask to be dropped off at a mall on the midnight ride?",
+      "expected_not_found": false,
+      "gold_answer": "When the bike ran out of fuel shortly after leaving DHA Phase 5 late at night, she waited at a gas station and discreetly noticed the driver's phone wallpaper featured a photo of him smiling with a rifle. Feeling uncomfortable when he asked if she was a college student, she promptly asked to be dropped off at an upcoming shopping mall.",
+      "gold_context": "Minutes after leaving a dinner in DHA Phase 5, the bike ran out of fuel. While waiting at the petrol station, I discreetly noticed that his wallpaper was him with a big grin and a rifle in his hand. When he asked me if I was studying in college, I made him drop me off at an approaching mall.",
+      "found": true,
+      "abstained": false,
+      "app_answer": "The author asked to be dropped off at a mall because they noticed the rider was messaging someone and wanted to avoid being seen with that person. This action was part of a discreet effort to maintain privacy and avoid potential impropriety during the ride. The mall was chosen as a public location where the author could safely exit without being observed by the rider or others.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
+      "retrieved": [
+        {
+          "passage_id": 23,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "link": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety#comp-m7nrvdsn",
+          "text": "When we got back on the road, I discreetly leaned over to see who and what he was messaging, and noticed that his wallpaper was him with a big grin and a rifle in his hand. When he asked me if I was studying in college, I made him drop me off at an approaching mall."
+        }
+      ],
+      "top_k": [
+        {
+          "passage_id": 23,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "When we got back on the road, I discreetly leaned over to see who and what he was messaging, and noticed that his wallpa"
+        },
+        {
+          "passage_id": 10,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "And he went: but I asked you. We did maybe one more round of that and then I snapped at him with an unkind lesson on the"
+        },
+        {
+          "passage_id": 26,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "It was noon on a Sunday which meant fewer people on the roads. That increased my chances of getting a serious-minded unc"
+        },
+        {
+          "passage_id": 32,
+          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
+          "preview": "Another 20 or so uneventful rides later, somewhere on Canal Road, the heat like a whip cracking open the synapses in my "
+        }
+      ],
+      "scores": {
+        "context_recall": 0.553,
+        "topk_recall": 0.553,
+        "source_evidence": 0.25,
+        "topk_evidence": 0.25,
+        "context_match": 0.553,
+        "answer_recall": 0.143,
+        "correctness": 0.6,
+        "grounded": 0.6,
+        "context_judge": 1.0
+      },
+      "judge": {
+        "correctness": {
+          "score": 3,
+          "reason": "The candidate introduces new facts about messaging someone and avoiding impropriety, which are not in the reference answer."
+        },
+        "grounded": {
+          "score": 3,
+          "reason": "The candidate infers motives and adds details not present in the source text, such as avoiding being seen with someone or concerns about impropriety."
+        },
+        "context_judge": {
+          "score": 5,
+          "reason": "The retrieved text includes both the context of the wallpaper and the reason the author asked to be dropped off at a mall."
+        }
+      },
+      "seconds": 11.4,
+      "overall": 0.6,
+      "stage": "retrieval_miss",
+      "input_order": 7
+    },
+    {
+      "rank": 13,
       "article": "https://docs.langchain.com/oss/python/langgraph/workflows-agents",
       "question": "Which workflow pattern is recommended when subtasks cannot be predefined, and what is a typical use case?",
       "expected_not_found": false,
@@ -829,7 +900,7 @@
       "gold_context": "Orchestrator-worker workflows provide more flexibility and are often used when subtasks cannot be predefined the way they can with parallelization. Typical use cases include writing software code or updating content across multiple documentation files where the total scope is determined at runtime.",
       "found": true,
       "abstained": false,
-      "app_answer": "The orchestrator-worker pattern is recommended when subtasks cannot be predefined because it dynamically breaks down tasks and delegates them to workers. A typical use case is generating a comprehensive report by delegating sections to different workers, each responsible for a specific part, and then synthesizing the outputs into a final result.",
+      "app_answer": "The orchestrator-worker pattern is recommended when subtasks cannot be predefined because it breaks down tasks into subtasks and delegates them to workers dynamically. A typical use case is generating a comprehensive report where different sections are handled by specialized workers, and the final result is synthesized from their outputs.",
       "page_purpose": "This web page explains Workflows and Agents in LangChain, where Workflows follow fixed, ordered code paths and Agents dynamically decide their processes and tool usage. It covers setup, LLM integration, prompt chaining, parallelization, routing, orchestrator-worker systems, tool nodes, and example traces.",
       "retrieved": [
         {
@@ -868,99 +939,28 @@
         "topk_evidence": 0.115,
         "context_match": 0.077,
         "answer_recall": 0.269,
-        "correctness": 1.0,
+        "correctness": 0.8,
         "grounded": 0.6,
         "context_judge": 1.0
       },
       "judge": {
         "correctness": {
-          "score": 5,
-          "reason": "Both answers state that the orchestrator-worker pattern is recommended when subtasks cannot be predefined and include a use case involving dynamic task delegation and worker specialization."
+          "score": 4,
+          "reason": "Both answers identify the orchestrator-worker pattern and mention a use case involving dynamic subtask delegation, though the candidate's use case is slightly different in detail."
         },
         "grounded": {
           "score": 3,
-          "reason": "The candidate answer introduces the \"orchestrator-worker pattern\" and a use case not present in the source text, which only describes task breakdown, delegation, and synthesis without mentioning workflow patterns or specific use cases."
+          "reason": "The candidate answer introduces the \"orchestrator-worker pattern\" and its use case, but the source text does not mention this pattern or support the claim that subtasks cannot be predefined."
         },
         "context_judge": {
           "score": 5,
           "reason": "The retrieved text aligns with the reference paragraph by identifying orchestrator-worker workflows as suitable when subtasks cannot be predefined and providing a typical use case."
         }
       },
-      "seconds": 11.7,
-      "overall": 0.62,
+      "seconds": 12.0,
+      "overall": 0.56,
       "stage": "retrieval_miss",
       "input_order": 16
-    },
-    {
-      "rank": 13,
-      "article": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety",
-      "question": "Why did the author ask to be dropped off at a mall on the midnight ride?",
-      "expected_not_found": false,
-      "gold_answer": "When the bike ran out of fuel shortly after leaving DHA Phase 5 late at night, she waited at a gas station and discreetly noticed the driver's phone wallpaper featured a photo of him smiling with a rifle. Feeling uncomfortable when he asked if she was a college student, she promptly asked to be dropped off at an upcoming shopping mall.",
-      "gold_context": "Minutes after leaving a dinner in DHA Phase 5, the bike ran out of fuel. While waiting at the petrol station, I discreetly noticed that his wallpaper was him with a big grin and a rifle in his hand. When he asked me if I was studying in college, I made him drop me off at an approaching mall.",
-      "found": true,
-      "abstained": false,
-      "app_answer": "The author asked to be dropped off at a mall because they noticed the rider was messaging someone, and they wanted to see who it was. This action was part of a discreet observation, and the request to be dropped off was made when the rider asked if the author was studying in college. The mall was a likely destination to avoid further interaction with the rider.",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
-      "retrieved": [
-        {
-          "passage_id": 23,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "link": "https://www.saaganthology.com/general/on-smelling-men%E2%80%99s-hair-%26-other-lessons-in-impropriety#comp-m7nrvdsn",
-          "text": "When we got back on the road, I discreetly leaned over to see who and what he was messaging, and noticed that his wallpaper was him with a big grin and a rifle in his hand. When he asked me if I was studying in college, I made him drop me off at an approaching mall."
-        }
-      ],
-      "top_k": [
-        {
-          "passage_id": 23,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "When we got back on the road, I discreetly leaned over to see who and what he was messaging, and noticed that his wallpa"
-        },
-        {
-          "passage_id": 10,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "And he went: but I asked you. We did maybe one more round of that and then I snapped at him with an unkind lesson on the"
-        },
-        {
-          "passage_id": 26,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "It was noon on a Sunday which meant fewer people on the roads. That increased my chances of getting a serious-minded unc"
-        },
-        {
-          "passage_id": 32,
-          "path": "On Smelling Men’s Hair & Other Lessons in Impropriety",
-          "preview": "Another 20 or so uneventful rides later, somewhere on Canal Road, the heat like a whip cracking open the synapses in my "
-        }
-      ],
-      "scores": {
-        "context_recall": 0.553,
-        "topk_recall": 0.553,
-        "source_evidence": 0.25,
-        "topk_evidence": 0.25,
-        "context_match": 0.553,
-        "answer_recall": 0.179,
-        "correctness": 0.6,
-        "grounded": 0.6,
-        "context_judge": 1.0
-      },
-      "judge": {
-        "correctness": {
-          "score": 3,
-          "reason": "The candidate misses the key fact that the author was uncomfortable when the driver asked if she was a college student and waited at a gas station to notice the phone wallpaper, which is central to the reference answer."
-        },
-        "grounded": {
-          "score": 3,
-          "reason": "The candidate claims the author noticed the rider messaging someone and wanted to see who it was, but this detail is not supported by the source text."
-        },
-        "context_judge": {
-          "score": 5,
-          "reason": "The retrieved text includes both the context of the wallpaper and the reason the author asked to be dropped off at a mall."
-        }
-      },
-      "seconds": 12.4,
-      "overall": 0.605,
-      "stage": "retrieval_miss",
-      "input_order": 7
     },
     {
       "rank": 14,
@@ -1017,7 +1017,7 @@
       "judge": {
         "correctness": {
           "score": 3,
-          "reason": "The candidate answer misses the key fact that the evaluation triggers a loop returning to the generator and rewrites the joke until acceptance, which is central to the reference answer."
+          "reason": "The candidate answer misses the key fact that the evaluation triggers a loop returning to the generator and rerouting execution, which is central to the process described in the reference."
         },
         "grounded": {
           "score": 5,
@@ -1025,10 +1025,10 @@
         },
         "context_judge": {
           "score": 5,
-          "reason": "The retrieved text explicitly describes what happens when the evaluator grades a joke as 'not funny', including the feedback mechanism and how it triggers the generator to produce a revised joke."
+          "reason": "The retrieved text explicitly describes what happens when the evaluator grades a joke as 'not funny', including the feedback mechanism and the subsequent generation of a new joke."
         }
       },
-      "seconds": 10.5,
+      "seconds": 11.8,
       "overall": 0.56,
       "stage": "selection_miss",
       "input_order": 19
@@ -1042,7 +1042,7 @@
       "gold_context": "Evaluator-optimizer workflows are commonly used when there's particular success criteria for a task, but iteration is required to meet that criteria. A classic example is translation between two languages, where it might take a few iterative feedback loops to preserve exact meaning and nuance.",
       "found": true,
       "abstained": false,
-      "app_answer": "Evaluator-optimizer workflows are commonly used when assessing and improving outputs, such as determining if a joke is funny or not, by structuring feedback with specific criteria. These workflows use schema-based outputs to ensure consistent and meaningful evaluations. The sections detail how an LLM is augmented with a structured output schema to evaluate and provide feedback on generated content.",
+      "app_answer": "Evaluator-optimizer workflows are commonly used when assessing and improving outputs, such as determining if a joke is funny or not, by structuring feedback with defined criteria. These workflows use schema-based outputs to ensure consistent and meaningful evaluations. The sections specify that the evaluator uses a structured output model to decide whether a joke is funny or not and provides feedback on how to improve it if necessary.",
       "page_purpose": "This web page explains Workflows and Agents in LangChain, where Workflows follow fixed, ordered code paths and Agents dynamically decide their processes and tool usage. It covers setup, LLM integration, prompt chaining, parallelization, routing, orchestrator-worker systems, tool nodes, and example traces.",
       "retrieved": [
         {
@@ -1086,7 +1086,7 @@
         "source_evidence": 0.148,
         "topk_evidence": 0.296,
         "context_match": 0.148,
-        "answer_recall": 0.296,
+        "answer_recall": 0.259,
         "correctness": 0.6,
         "grounded": 1.0,
         "context_judge": 0.6
@@ -1094,19 +1094,19 @@
       "judge": {
         "correctness": {
           "score": 3,
-          "reason": "The candidate mentions usage in assessing humor and structured schema-based outputs, but does not state the key fact that these workflows are used when specific quality criteria require iterative refinement, as in translation."
+          "reason": "The candidate mentions usage in assessing humor and structured feedback, but does not state the key fact that these workflows are used when specific quality criteria require iterative refinement, as in language translation."
         },
         "grounded": {
           "score": 5,
-          "reason": "Every claim in the candidate answer is directly supported by the source text, which describes the workflow's purpose, structure, and function in evaluating and improving jokes through schema-based feedback."
+          "reason": "Every claim in the candidate answer is directly supported by the source text, which describes the evaluator-optimizer workflow for assessing and improving jokes with structured feedback."
         },
         "context_judge": {
           "score": 3,
           "reason": "The retrieved text describes an evaluator-optimizer workflow for generating jokes but does not explicitly state when such workflows are commonly used, only that they involve iteration based on feedback."
         }
       },
-      "seconds": 12.5,
-      "overall": 0.481,
+      "seconds": 14.0,
+      "overall": 0.476,
       "stage": "retrieval_miss",
       "input_order": 17
     },
@@ -1119,8 +1119,8 @@
       "gold_context": "It was a winter ride, five minutes before iftar, and we were crossing the crowded 250m street under the Sherpao flyover. Tucked inside my puffer jacket, helmet on, cropped hair hidden, I was completely concealed. No man in the crowd noticed me, nor did anyone make space for me. It was precisely because of this, because my body was a non-event, that our proximity was a perfectly neutral, luminously new sensation.",
       "found": true,
       "abstained": false,
-      "app_answer": "The rider felt that she was a non-event when she realized that no one reacted to her breasts bumping into other riders or to her riding alongside a woman with cropped hair, as both instances occurred without interruption or judgment. In both cases, the riders continued their actions without noticing or responding to the impropriety, indicating a normalization of such behavior.",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
+      "app_answer": "The rider felt that she was a non-event when she realized that no one reacted to her breasts bumping into other riders, and similarly, when she realized the female rider on the bike lane did not pause to check her, despite her unusual posture. Both instances show a lack of reaction, indicating that such improprieties go unnoticed or unremarked upon.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
       "retrieved": [
         {
           "passage_id": 8,
@@ -1163,7 +1163,7 @@
         "source_evidence": 0.176,
         "topk_evidence": 0.324,
         "context_match": 0.176,
-        "answer_recall": 0.147,
+        "answer_recall": 0.088,
         "correctness": 0.6,
         "grounded": 0.6,
         "context_judge": 0.2
@@ -1171,19 +1171,19 @@
       "judge": {
         "correctness": {
           "score": 3,
-          "reason": "The candidate mentions instances of no reaction to the rider's appearance and actions, but does not state the specific context (winter ride, five minutes before iftar, crossing a crowded street under the Sherpao flyover) or describe the sensation of anonymity as in the reference."
+          "reason": "The candidate answer misses the key factual details about the specific time, location, and context (winter ride, five minutes before iftar, Sherpao flyover) present in the reference answer."
         },
         "grounded": {
           "score": 3,
-          "reason": "The candidate claims the rider felt she was a non-event in two instances, but the source text only describes the narrator's perspective, not the rider's feelings or awareness of being a non-event."
+          "reason": "The candidate misattributes the rider's feelings and interpretations, as the source text describes the narrator's experience, not the rider's, and does not state that the rider felt she was a non-event."
         },
         "context_judge": {
           "score": 1,
           "reason": "The retrieved text does not mention when the rider felt she was a non-event, nor does it reference the specific moment or context described in the reference paragraph."
         }
       },
-      "seconds": 22.4,
-      "overall": 0.346,
+      "seconds": 23.7,
+      "overall": 0.337,
       "stage": "retrieval_miss",
       "input_order": 1
     },
@@ -1197,7 +1197,7 @@
       "found": false,
       "abstained": true,
       "app_answer": "",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
       "retrieved": [],
       "top_k": [
         {
@@ -1241,7 +1241,7 @@
           "reason": "app returned not found"
         }
       },
-      "seconds": 4.2,
+      "seconds": 4.6,
       "overall": 0.0,
       "stage": "retrieval_miss",
       "input_order": 3
@@ -1256,7 +1256,7 @@
       "found": false,
       "abstained": true,
       "app_answer": "",
-      "page_purpose": "This web page is a personal reflection by an author on the experience of smelling men’s hair, framed as part of a broader exploration of impropriety. It includes a reference to an artwork titled \"Ode To History\" and shares anecdotes about the author's encounters with men’s hair, contrasting it with their past experiences with women’s hair.",
+      "page_purpose": "This web page is for an article titled \"On Smelling Men’s Hair & Other Lessons in Impropriety,\" which reflects on personal experiences and lessons related to smelling men’s hair, with a section attributing the piece to an author. It is part of a broader exploration of impropriety, illustrated by a 2024 artwork.",
       "retrieved": [],
       "top_k": [
         {
@@ -1300,7 +1300,7 @@
           "reason": "app returned not found"
         }
       },
-      "seconds": 5.6,
+      "seconds": 5.3,
       "overall": 0.0,
       "stage": "retrieval_miss",
       "input_order": 9
@@ -1359,7 +1359,7 @@
           "reason": "app returned not found"
         }
       },
-      "seconds": 3.9,
+      "seconds": 4.7,
       "overall": 0.0,
       "stage": "selection_miss",
       "input_order": 13
@@ -1418,7 +1418,7 @@
           "reason": "app returned not found"
         }
       },
-      "seconds": 4.0,
+      "seconds": 4.6,
       "overall": 0.0,
       "stage": "retrieval_miss",
       "input_order": 14

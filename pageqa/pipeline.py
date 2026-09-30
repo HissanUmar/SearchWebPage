@@ -1,16 +1,27 @@
-from . import cache
-from .ask import ask
-from .attach import attach
-from .card import page_card
-from .fetch import fetch
+from .answer import ask, attach
+from .ingest import fetch, page_card, split
 from .llm import LLM
 from .models import Answer, Page
-from .rank import embed_chunks, rank
-from .split import split
+from .retrieve import embed_chunks, rank
 
+
+# --- cache (in-memory, per-URL, cleared on process restart) ---
+
+_store = {}
+
+
+def _cache_get(url):
+    return _store.get(url)
+
+
+def _cache_put(url, page):
+    _store[url] = page
+
+
+# --- pipeline ---
 
 def _load(url, llm):
-    page = cache.get(url)
+    page = _cache_get(url)
     if page:
         return page
     title, chunks = split(fetch(url))
@@ -19,7 +30,7 @@ def _load(url, llm):
     page = Page(url, title, chunks)
     page.card = page_card(title, chunks, llm)
     page.embs = embed_chunks(chunks, llm)
-    cache.put(url, page)
+    _cache_put(url, page)
     return page
 
 

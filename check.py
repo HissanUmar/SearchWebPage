@@ -14,8 +14,12 @@ import sys
 import numpy as np
 
 from pageqa.card import card_parts
-from pageqa.fetch import fetch
-from pageqa.split import split
+from pageqa.ingest import card_parts, fetch, split
+
+from pageqa.answer import build_prompt, parse
+from pageqa.ingest import page_card
+from pageqa.llm import LLM
+from pageqa.retrieve import K, embed_chunks, score
 
 
 def body(c):

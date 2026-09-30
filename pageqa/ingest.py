@@ -1,6 +1,22 @@
+"""Ingest: turn a URL into a Page (fetch → split → card)."""
+
 import re
+
+import requests
 from bs4 import BeautifulSoup, Tag, Comment
-from .models import Chunk
+
+from .models import Card, Chunk
+
+
+# --- fetch ---
+
+def fetch(url):
+    r = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (page-qa)"}, timeout=30)
+    r.raise_for_status()
+    return r.text
+
+
+# --- split ---
 
 HEADINGS = {"h1": 1, "h2": 2, "h3": 3, "h4": 4}
 BLOCK = {"p", "li", "ul", "ol", "pre", "blockquote", "table", "div", "section", "dl",
@@ -110,3 +126,23 @@ def split(html):
                 items.append(("t", t))
     flush()
     return title, chunks
+
+
+# --- card ---
+
+def card_parts(title, chunks):
+    h1 = chunks[0].path.split(" > ")[0]
+    intro = next((c.text for c in chunks if c.text), "")[:300]
+    outline = list(dict.fromkeys(c.path for c in chunks))[:30]
+    return h1, intro, outline
+
+
+def page_card(title, chunks, llm):
+    """Small summary of what the page is for, built from its own structure (one cheap LLM call)."""
+    h1, intro, outline = card_parts(title, chunks)
+    prompt = (
+        "In 1-2 sentences, say what this web page is for. Use only the info below.\n\n"
+        f"Title: {title}\nMain heading: {h1}\nIntro: {intro}\nSections:\n" + "\n".join(outline)
+    )
+    purpose = llm.generate(prompt).strip()[:400]
+    return Card(title, h1, intro, outline, purpose)

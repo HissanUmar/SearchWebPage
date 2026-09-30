@@ -1,4 +1,11 @@
+"""Answer: prompt the LLM for section IDs, then attach verbatim content and deep links."""
+
 import re
+from urllib.parse import quote
+
+from .models import Source
+
+# --- ask ---
 
 MAX_TEXT, MAX_CODE = 1100, 400
 
@@ -34,3 +41,21 @@ def parse(out, top):
 def ask(card, top, question, llm):
     """-> (chunk ids that answer the question, short explanation). Model never writes code/quotes."""
     return parse(llm.generate(build_prompt(card, top, question)), top)
+
+
+# --- attach ---
+
+def _link(c, base):
+    if c.anchor:
+        return f"{base}#{c.anchor}"
+    words = c.text.split()[:8]  # no heading id: scroll-to-text link (supported by current browsers)
+    if not words:
+        return base
+    return f"{base}#:~:text=" + quote(" ".join(words), safe="").replace("-", "%2D")
+
+
+def attach(ids, chunks, url):
+    """Pull verbatim text/code and the deep link from the scraped page."""
+    by_id = {c.id: c for c in chunks}
+    base = url.split("#")[0]
+    return [Source(by_id[i], _link(by_id[i], base)) for i in ids if i in by_id]

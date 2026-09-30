@@ -14,10 +14,9 @@ from collections import Counter
 
 import numpy as np
 
-from pageqa.fetch import fetch
+from pageqa.ingest import fetch, split
 from pageqa.llm import LLM
-from pageqa.rank import K, embed_chunks, score
-from pageqa.split import split
+from pageqa.retrieve import K, embed_chunks, score
 
 from . import metrics
 

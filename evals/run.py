@@ -14,9 +14,10 @@ import time
 from collections import Counter
 from datetime import datetime, timezone
 
+# evals/run.py
 from pageqa.llm import LLM
 from pageqa.pipeline import run
-from pageqa.rank import K
+from pageqa.retrieve import K     # was: from pageqa.rank import K
 
 from . import judge, metrics
 
