@@ -1,12 +1,13 @@
 # CLAUDE.md
 
-Page Q&A: user gives a page URL and a question. The app answers using only that page and shows where the answer lives (section, verbatim text/code, link). Full reasoning is in `PLAN.md`.
+Page Q&A: user gives a page URL and a question. The app answers using only that page and shows where the answer lives (section, verbatim text/code, link). Full reasoning is in `PLAN.md`. How pages are split into passages is in `CHUNKING.md`. How quality is scored is in `EVAL.md`.
 
 ## Commands
 ```
 pip install -r requirements.txt
 streamlit run app.py                     # paste the Colab ngrok URL in the sidebar
-python check.py <page-url> [keyword]     # diagnostic: passage count/lengths, where keyword is found
+python check.py <page-url>               # how the page is chunked (also: --full --ids 8,15 --find WORD --dump FILE)
+python check.py <url> --q "..." --colab <ngrok-url>   # ranking scores, exact prompt, raw model reply
 ```
 The LLM runs on Colab (Ollama + FastAPI + ngrok). The app cannot answer without that server up.
 
@@ -19,11 +20,12 @@ pageqa/
   fetch.py         download HTML
   split.py         HTML -> passages (<=1000 chars, heading path, anchor, text, code)
   card.py          page purpose (title, h1, intro, outline + one LLM call)
-  rank.py          embeddings + keyword overlap -> top-k
-  ask.py           prompt + defensive parse of `IDS:` / `EXPLANATION:`
+  rank.py          score() + rank(): embeddings + keyword overlap -> top-K (K=4)
+  ask.py           build_prompt, parse (`IDS:` / `EXPLANATION:`, defensive), ask
   attach.py        verbatim text/code + link for chosen passages
   cache.py         in-memory per-URL cache
   pipeline.py      run(url, question, colab_url)
+evals/             metrics.py (lexical scores), judge.py (LLM judge), run.py (CLI, JSON report), questions.csv
 ```
 
 ## Rules
@@ -38,8 +40,9 @@ pageqa/
 - Small model (Qwen3 4B): context is limited. Raising `MAX` in `split.py` or `MAX_TEXT` in `ask.py` can overflow it. Colab must set `num_ctx=8192`.
 - The embedder reads about 128 tokens, so `rank.py` also scores keyword overlap on the full passage.
 - The ngrok URL changes on every Colab restart.
-- Pages with no headings depend on passage splitting. If a query wrongly returns "not found", run `check.py` first.
+- Pages with no headings depend on passage splitting. If a query wrongly returns "not found", or an answer looks off, run `check.py` first (see `CHUNKING.md`).
+- Text not inside `p`/`li`/`td`/`th`/`dd`/`blockquote` (and `h5`/`h6`, `summary`, `figcaption`) is dropped by `split.py`.
 - JS-rendered pages return no content. Code is read only from `<pre>` tags.
 
 ## Testing
-No test suite yet. Checked so far with a mock Colab server (`/generate`, `/embed_batch`, `/embed`) and local HTML pages. Add tests for `split.py` and `attach.py` first.
+The `evals/` pipeline scores answer quality on a labelled question set (`EVAL.md`). No unit tests yet. Checked so far with a mock Colab server (`/generate`, `/embed_batch`, `/embed`) and local HTML pages. Add tests for `split.py` and `attach.py` first.

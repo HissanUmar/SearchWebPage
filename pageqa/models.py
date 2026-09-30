@@ -40,3 +40,4 @@ class Answer:
     explanation: str
     sources: list
     found: bool
+    top: list = field(default_factory=list)  # passages sent to the model (used by evals)

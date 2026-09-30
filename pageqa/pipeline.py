@@ -29,4 +29,4 @@ def run(url, question, colab_url):
     top = rank(question, page.chunks, page.embs, llm)
     ids, explanation = ask(page.card, top, question, llm)
     sources = attach(ids, page.chunks, url)
-    return Answer(page.card.purpose, explanation if sources else "", sources, bool(sources))
+    return Answer(page.card.purpose, explanation if sources else "", sources, bool(sources), top)

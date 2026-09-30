@@ -63,6 +63,8 @@ fetch -> split into passages -> page card -> rank -> ask (IDs + explanation) -> 
 | 13 | **In-memory cache per URL** (chunks, card, embeddings) | Repeat questions skip scrape and embedding | Lost on restart, never invalidated while running |
 | 14 | **Package split into one concern per file** | Requested, so the project can grow without a single large file | About 11 small files for a small MVP |
 | 15 | **Ngrok URL entered in the sidebar** | It changes on every Colab restart | Manual paste |
+| 16 | **Eval pipeline (`evals/`) on a labelled CSV, judged by the app's own Colab model** | Measures quality per stage (retrieval, selection, answer) instead of eyeballing. Lexical scores are deterministic, judge scores add meaning | 4B judge is noisy and can favor its own answers, so lexical scores and stage counts carry the weight |
+| 17 | **Unanswerable questions are first-class in the eval** | "Not found" must count as correct when the page lacks the answer | Detected from wording unless an `answerable` column is given |
 
 ### Module rules
 - `app.py` imports only `pipeline.run`.
@@ -77,8 +79,11 @@ fetch -> split into passages -> page card -> rank -> ask (IDs + explanation) -> 
 - No relevance threshold: always sends top-4 passages and relies on the model to say `NONE`.
 - No automated tests. Everything was checked against a mock Colab server and local HTML.
 - Cache is in memory only.
+- `split.py` keeps text only from `p`, `li`, `blockquote`, `td`, `th`, `dd`. Loose text in `div`/`main`, `h5`/`h6`, `summary`, `figcaption` is dropped (see `CHUNKING.md`).
+- Answers can combine several passages, and the model can mention internal passage numbers. Prompt not yet tightened.
 
 ## 4. Possible next steps (not committed)
+0. Run the eval on the real Colab model and act on `summary.stages` (see `EVAL.md`).
 1. Tests for `split.py` and `attach.py` first, since they must not break.
 2. Headless-browser fallback for JS pages.
 3. Tune keyword weight and top-k on real pages.
@@ -86,4 +91,4 @@ fetch -> split into passages -> page card -> rank -> ask (IDs + explanation) -> 
 5. Persistent cache.
 
 ## 5. Diagnostics
-`python check.py <url> [keyword]` prints passage count and lengths, and which passage contains the keyword. Use it first when a query wrongly returns "not found".
+`python check.py <url>` shows how a page is chunked; `--ids`, `--find`, `--dump` inspect passages; `--q ... --colab ...` shows ranking scores, the exact prompt and the raw model reply. Use it first when a query wrongly returns "not found" or gives an off answer. Chunking rules are in `CHUNKING.md`; scoring is in `EVAL.md`.

@@ -11,7 +11,7 @@ NOISE = ["script", "style", "svg", "nav", "footer", "form", "button", "noscript"
 
 
 def _clean(s):
-    return " ".join(s.split())
+    return " ".join(re.sub(r"[\u200b-\u200d\ufeff]", "", s).split())
 
 
 def _own_text(el):
